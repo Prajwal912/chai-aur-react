@@ -1,19 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+
+import "./App.css";
 
 function App() {
-  
-  let counter = 5;
+  const [counter, setcounter] = useState(15);
 
   const addVal = () => {
-    counter++;
-  }
+    if(counter < 20){
+      setcounter(counter + 1);
+    }
+  };
 
   const removeVal = () => {
-    counter--;
-  }
+    if(counter > 0){
+      setcounter(counter - 1);
+    }
+  };
 
   return (
     <>
@@ -26,7 +28,7 @@ function App() {
       <br />
       <button onClick={removeVal}>Decrease Val</button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
