@@ -12,7 +12,7 @@ function App() {
       <h1 className="bg-green-100 text-black mb-4 rounded-lg">Tailwind</h1>
 
       <Card btn='View' />
-      <Card btn='Show' />
+      <Card  />
     </>
   );
 }

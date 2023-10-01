@@ -1,6 +1,6 @@
 import React from "react";
 
-const Card = ({btn}) => {
+const Card = ({btn = 'default text'}) => {
   return (
     <div class="relative h-[400px] w-[300px] rounded-md">
       <img
