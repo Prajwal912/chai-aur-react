@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 
 function App() {
   const [length, setLength] = useState(8);
@@ -6,6 +6,10 @@ function App() {
   const [charAllowed, setcharAllowed] = useState(false);
   const [password, setpassword] = useState("");
 
+  //useRef hook
+  const passRef = useRef(null);
+
+  //useCallback hook for the variables which are talking to eachother so then we can add them to dependencies
   const passwordGenerator = useCallback(() => {
     let pass = "";
     let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -21,9 +25,16 @@ function App() {
   }, [length, numAllowed, charAllowed, setpassword]);
 
   useEffect(() => {
-    passwordGenerator()
-  }, [length, numAllowed, charAllowed, passwordGenerator])
-  
+    passwordGenerator();
+  }, [length, numAllowed, charAllowed, passwordGenerator]);
+
+  const copyPassword = useCallback(() => {
+    //?. for optional select
+    passRef.current?.select();
+    // passRef.current?.setSelectionRange(0, 10);
+    window.navigator.clipboard.writeText(password);
+  }, [password]);
+
   return (
     <>
       <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-4 my-8 text-orange-500 bg-gray-700">
@@ -39,7 +50,10 @@ function App() {
             readOnly
           />
 
-          <button className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0">
+          <button
+            className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0"
+            onClick={copyPassword}
+          >
             Copy
           </button>
         </div>
@@ -51,6 +65,7 @@ function App() {
               min={6}
               max={100}
               value={length}
+              ref={passRef}
               className="cursor-pointer"
               onChange={(e) => {
                 setLength(e.target.value);
@@ -62,22 +77,22 @@ function App() {
           <div className=" flex items-center gap-x-1">
             <input
               type="checkbox"
-             defaultChecked={numAllowed}
-             id="numberInput"
+              defaultChecked={numAllowed}
+              id="numberInput"
               onChange={(e) => {
                 setnumAllowed((prev) => !prev);
               }}
             />
-              <label htmlFor="numberInput">Numbers</label>
+            <label htmlFor="numberInput">Numbers</label>
             <input
               type="checkbox"
-             defaultChecked={charAllowed}
-             id="characterInput"
+              defaultChecked={charAllowed}
+              id="characterInput"
               onChange={(e) => {
                 setcharAllowed((prev) => !prev);
               }}
             />
-              <label htmlFor="characterInput">Characters</label>
+            <label htmlFor="characterInput">Characters</label>
           </div>
         </div>
       </div>
