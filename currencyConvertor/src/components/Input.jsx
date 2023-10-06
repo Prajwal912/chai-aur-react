@@ -25,7 +25,7 @@ function InputBox({
           disabled={amountDisable}
           value={amount}
           onChange={(e) =>
-            onAmountChange && onAmountChange(Number(e.target.value))
+            onAmountChange && onAmountChange(Number(e.target.value).toString())
           }
         />
       </div>
@@ -35,7 +35,6 @@ function InputBox({
           className="rounded-lg px-1 py-1 bg-gray-100 cursor-pointer outline-none"
           value={selectCurrency}
           onChange={(e) => {
-            console.log(e.target.value)
             onCurrencyChange && onCurrencyChange(e.target.value)}}
           disabled={currencyDisable}
 
