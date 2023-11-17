@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+
 
 const Github = () => {
-  const [data, setdata] = useState([]);
-  useEffect(() => {
-    fetch("https://api.github.com/users/Prajwal912")
-      // fetch("https://api.linkedin.com/v2/people/(vanityName:prajwalshah2001)?projection=(id,firstName,lastName)")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setdata(data);
-      });
-  }, []);
+    const data = useLoaderData()
+//   const [data, setdata] = useState([]);
+//   useEffect(() => {
+//     fetch("https://api.github.com/users/Prajwal912")
+//       // fetch("https://api.linkedin.com/v2/people/(vanityName:prajwalshah2001)?projection=(id,firstName,lastName)")
+//       .then((res) => res.json())
+//       .then((data) => {
+//         console.log(data);
+//         setdata(data);
+//       });
+//   }, []);
 
   return (
     <>
@@ -29,3 +32,9 @@ const Github = () => {
 };
 
 export default Github;
+
+
+export const githubInfoLoader = async () => {
+    const res = await fetch("https://api.github.com/users/Prajwal912")
+    return res.json()
+}
